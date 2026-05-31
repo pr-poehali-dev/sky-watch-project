@@ -10,85 +10,61 @@ export function WorkSection() {
     >
       <div className="mx-auto w-full max-w-7xl">
         <div
-          className={`mb-12 transition-all duration-700 md:mb-16 ${
+          className={`mb-8 transition-all duration-700 md:mb-12 ${
             isVisible ? "translate-x-0 opacity-100" : "-translate-x-12 opacity-0"
           }`}
         >
           <h2 className="mb-2 font-sans text-5xl font-light tracking-tight text-foreground md:text-6xl lg:text-7xl">
-            Проекты
+            Флаг КРР
           </h2>
-          <p className="font-mono text-sm text-foreground/60 md:text-base">/ Избранные работы</p>
+          <p className="font-mono text-sm text-foreground/60 md:text-base">/ Государственный символ</p>
         </div>
 
-        <div className="space-y-6 md:space-y-8">
-          {[
-            {
-              number: "01",
-              title: "ТехноСтарт",
-              category: "Корпоративный портал",
-              year: "2024",
-              direction: "left",
-            },
-            {
-              number: "02",
-              title: "АльфаТрейд",
-              category: "Финтех платформа",
-              year: "2024",
-              direction: "right",
-            },
-            {
-              number: "03",
-              title: "МедиаПульс",
-              category: "Медиа сервис",
-              year: "2023",
-              direction: "left",
-            },
-          ].map((project, i) => (
-            <ProjectCard key={i} project={project} index={i} isVisible={isVisible} />
-          ))}
+        <div
+          className={`flex flex-col gap-8 transition-all duration-700 md:flex-row md:items-center md:gap-16 ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
+          }`}
+          style={{ transitionDelay: "200ms" }}
+        >
+          <div className="flex-shrink-0">
+            <div className="relative overflow-hidden rounded-xl border border-foreground/20 shadow-2xl">
+              <img
+                src="https://cdn.poehali.dev/projects/b8dfbb88-49af-4758-ba1a-24b6d381d811/files/2972c505-5e6f-4186-b15e-22956bf98746.jpg"
+                alt="Флаг Квартирной Российской Республики"
+                className="h-48 w-72 object-cover md:h-64 md:w-96"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            {[
+              {
+                symbol: "Фиолетовый фон",
+                meaning: "Символизирует независимость, свободу мысли и суверенитет виртуального государства",
+              },
+              {
+                symbol: "9 зелёных труб",
+                meaning: "Девять труб — основа инфраструктуры республики, символ стабильности и связи между гражданами",
+              },
+              {
+                symbol: "Солнце в центре",
+                meaning: "Жёлтое солнце олицетворяет свет знаний, тепло общества и вечное процветание КРР",
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className={`border-l border-foreground/30 pl-4 transition-all duration-700 md:pl-6 ${
+                  isVisible ? "translate-x-0 opacity-100" : "translate-x-16 opacity-0"
+                }`}
+                style={{ transitionDelay: `${300 + i * 150}ms` }}
+              >
+                <div className="mb-1 font-sans text-base font-medium text-foreground md:text-lg">{item.symbol}</div>
+                <div className="font-mono text-xs leading-relaxed text-foreground/60 md:text-sm">{item.meaning}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
-  )
-}
-
-function ProjectCard({
-  project,
-  index,
-  isVisible,
-}: {
-  project: { number: string; title: string; category: string; year: string; direction: string }
-  index: number
-  isVisible: boolean
-}) {
-  const getRevealClass = () => {
-    if (!isVisible) {
-      return project.direction === "left" ? "-translate-x-16 opacity-0" : "translate-x-16 opacity-0"
-    }
-    return "translate-x-0 opacity-100"
-  }
-
-  return (
-    <div
-      className={`group flex items-center justify-between border-b border-foreground/10 py-6 transition-all duration-700 hover:border-foreground/20 md:py-8 ${getRevealClass()}`}
-      style={{
-        transitionDelay: `${index * 150}ms`,
-        marginLeft: index % 2 === 0 ? "0" : "auto",
-        maxWidth: index % 2 === 0 ? "85%" : "90%",
-      }}
-    >
-      <div className="flex items-baseline gap-4 md:gap-8">
-        <span className="font-mono text-sm text-foreground/30 transition-colors group-hover:text-foreground/50 md:text-base">
-          {project.number}
-        </span>
-        <div>
-          <h3 className="mb-1 font-sans text-2xl font-light text-foreground transition-transform duration-300 group-hover:translate-x-2 md:text-3xl lg:text-4xl">
-            {project.title}
-          </h3>
-          <p className="font-mono text-xs text-foreground/50 md:text-sm">{project.category}</p>
-        </div>
-      </div>
-      <span className="font-mono text-xs text-foreground/30 md:text-sm">{project.year}</span>
-    </div>
   )
 }
